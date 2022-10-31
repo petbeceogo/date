@@ -1,6 +1,7 @@
 package dateform
 
 import (
+	"math"
 	"strconv"
 	"time"
 )
@@ -39,4 +40,33 @@ func KRTime(t time.Time) string {
 	}
 
 	return hStamp + mStamp
+}
+
+func TimeHourMin(t time.Time) string {
+	stamp := toDigit(strconv.Itoa(t.Hour()), 2) +
+		":" +
+		toDigit(strconv.Itoa(t.Minute()), 2)
+
+	return stamp
+}
+
+func DurationHourMin(d time.Duration) string {
+	hour := d.Hours()
+	h := int(math.Floor(hour))
+	m := int(math.Floor(d.Minutes())) - h*60
+	stamp := toDigit(strconv.Itoa(h), 2) +
+		"h " +
+		toDigit(strconv.Itoa(m), 2) +
+		"m"
+
+	return stamp
+}
+
+func DurationMinSecond(d time.Duration) string {
+	minutes := d.Minutes()
+	m := int(math.Floor(minutes))
+	s := int(math.Floor(d.Seconds())) - m*60
+	stamp := toDigit(strconv.Itoa(m), 2) + "m " + toDigit(strconv.Itoa(s), 2) + "s"
+
+	return stamp
 }
