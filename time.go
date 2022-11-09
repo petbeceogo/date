@@ -34,3 +34,15 @@ func NewEnd(
 
 	return t
 }
+
+func NewStartFrom(dayDistance int) time.Time {
+	t := Now().Add(time.Duration(24*dayDistance) * time.Hour)
+
+	return NewStart(t.Year(), int(t.Month()), t.Day())
+}
+
+func NewEndFrom(dayDistance int) time.Time {
+	t := Now().Add(time.Duration(24*dayDistance) * time.Hour)
+
+	return NewEnd(t.Year(), int(t.Month()), t.Day())
+}
