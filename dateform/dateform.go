@@ -3,7 +3,10 @@ package dateform
 import (
 	"math"
 	"strconv"
+	"strings"
 	"time"
+
+	"github.com/petbeceogo/date"
 )
 
 // TODO: regex 유사한 패턴 기반 동작으로 변경
@@ -13,6 +16,30 @@ func Date(t time.Time) string {
 	dStamp := toDigit(strconv.Itoa(t.Day()), 2)
 
 	return yStamp + "." + mStamp + "." + dStamp
+}
+
+func ParseDate(dateStamp string) time.Time {
+	segs := strings.Split(dateStamp, "-")
+	segLen := len(segs)
+
+	if segLen != 3 {
+		return date.Zero()
+	}
+
+	year, err := strconv.Atoi(segs[0])
+	if err != nil {
+		return date.Zero()
+	}
+	month, err := strconv.Atoi(segs[1])
+	if err != nil {
+		return date.Zero()
+	}
+	day, err := strconv.Atoi(segs[2])
+	if err != nil {
+		return date.Zero()
+	}
+
+	return date.NewStart(year, month, day)
 }
 
 func KRMonthDate(t time.Time) string {

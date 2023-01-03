@@ -6,6 +6,12 @@ import (
 	"github.com/petbeceogo/date/dateloc"
 )
 
+func Zero() time.Time {
+	var t time.Time
+
+	return t
+}
+
 func Now() time.Time {
 	return time.Now().In(dateloc.Current())
 }
